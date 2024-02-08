@@ -1,0 +1,35 @@
+.categoryParagraph {
+  margin: 0;
+}
+
+
+
+.categoryPreviewContainerDeleteButton {
+  font-size: 1em;
+  font-weight: 500;
+  color: black;
+  background-color: #e13f66;
+  border-radius: 8px;
+  border: 1px;
+  padding: 0.6em 1.2em;
+  margin: 5px;
+}
+.categoryPreviewContainerDeleteButton:hover {
+  background-color: #c32148;
+  border-color: #730000;
+}
+
+.categoryPreviewContainerPutButton {
+  font-size: 1em;
+  font-weight: 500;
+  color: black;
+  background-color: #fff51e;
+  border-radius: 8px;
+  border: 1px;
+  padding: 0.6em 1.2em;
+  margin: 5px;
+}
+.categoryPreviewContainerPutButton:hover {
+  background-color: #ffd700;
+  border-color: #af8700;
+}

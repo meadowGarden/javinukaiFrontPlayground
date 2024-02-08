@@ -1,0 +1,17 @@
+.categoryParagraph {
+  margin: 0;
+}
+
+.categoryPreviewListContainerDeleteButton {
+  font-size: 1em;
+  font-weight: 500;
+  color: black;
+  background-color: #e13f66;
+  border-radius: 50%;
+  border: 1px;
+  margin: 5px;
+}
+.categoryPreviewListContainerDeleteButton:hover {
+  background-color: #c32148;
+  border-color: #730000;
+}

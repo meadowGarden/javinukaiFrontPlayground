@@ -1,0 +1,40 @@
+.contestContainer {
+  background-color: #c2dfff;
+  margin: 0;
+  padding: 1em;
+}
+
+.contestParagraph {
+  margin: 0;
+  padding: 0.2em;
+}
+
+.categoryListContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1em;
+}
+
+.contestListContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 1em;
+}
+
+@media screen and (max-width: 1280px) {
+  .contestListContainer {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+@media screen and (max-width: 1080px) {
+  .contestListContainer {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media screen and (max-width: 720px) {
+  .contestListContainer {
+    grid-template-columns: 1fr;
+  }
+}
