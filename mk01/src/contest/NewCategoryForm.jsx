@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./NewCategoryForm.css";
+import "./CommonStyle.css";
 import axios from "axios";
 
 const NewCategoryForm = () => {
@@ -29,7 +30,6 @@ const NewCategoryForm = () => {
   };
 
   const sendNewCategory = (newCategory) => {
-    console.log(newCategory);
     axios
       .post("http://localhost:8080/api/v1/categories", newCategory)
       .then((response) => {
@@ -76,7 +76,7 @@ const NewCategoryForm = () => {
               className="categoryFormInputStyle"
             />
 
-            <button className="categoryFormSubmitButtonStyle">submit</button>
+            <button className="formSubmitButton">submit</button>
           </form>
         </div>
       </div>

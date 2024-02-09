@@ -2,19 +2,22 @@ import "./CategoryPreview.css";
 
 const CategoryPreview = ({
   category,
-  clickRemoveCategory,
+  contest,
+  updateRemoveContestCategories,
   clickUpdateCategory,
 }) => {
   const { categoryName, description } = category;
+  const { id, categories } = contest;
 
-  // console.log(category);
+  const FilteredUnwantedCategory = categories.filter((cat) => cat.id !== category.id);
+  const updatedCategories = [FilteredUnwantedCategory];
 
   return (
     <div className="categoryParagraph">
       {categoryName}
       <button
         className="categoryPreviewContainerDeleteButton"
-        onClick={() => clickRemoveCategory(category)}
+        onClick={() => updateRemoveContestCategories(id, updatedCategories)}
       >
         -
       </button>

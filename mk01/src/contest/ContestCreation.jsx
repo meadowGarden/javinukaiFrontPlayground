@@ -8,6 +8,7 @@ import CategoryPreviewList from "./CategoryPreviewList";
 
 const ContestCreation = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const [isModalVisible, setIsModalVisbible] = useState();
   const [categoriesArr, setCategoriesArr] = useState([]);
   const [constestArr, setContestArr] = useState([]);
 
@@ -42,19 +43,56 @@ const ContestCreation = () => {
   //     .catch((error) => console.log(error));
   // };
 
-  const removeCategory = (category) => {
+  const addCategoryFromList = (category) => {
+    console.log(
+      "cetegory to add" + category.categoryName + " " + category.description
+    );
+  };
+
+  const openCategoryList = (contest) => {
+    console.log(contest);
+    setIsModalVisbible(true);
+  };
+
+  const deleteCategoryFromList = (category) => {
     axios
       .delete(`http://localhost:8080/api/v1/categories/${category?.id}`)
       .then((response) => {
         console.log(response);
-        window.location.reload();
+      })
+      .catch((error) => console.log(error));
+  };
+
+  const removeCategoryFromContest = (contestID, category) => {
+    console.log(contestID);
+    console.log(category.id);
+
+    axios
+      .patch(`http://localhost:8080/api/v1/contests/remove/${contestID}`, {
+        data: [category.id],
+      })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => console.log(error));
+  };
+
+  const updateRemoveContestCategories = (contestID, categories) => {
+    axios
+      .patch(
+        `http://localhost:8080/api/v1/contests/${contestID}`,
+        categories
+      )
+      .then((response) => {
+        console.log(response);
       })
       .catch((error) => console.log(error));
   };
 
   const updateCategory = (category) => {
+    console.log(category.categoryName);
     axios
-      .put(`http://localhost:8080/api/v1/categories/${category?.id}`, category)
+      .put(`http://localhost:8080/api/v1/categories/${category?.id}`)
       .then((response) => {
         console.log(response);
       })
@@ -65,13 +103,17 @@ const ContestCreation = () => {
     return <div>data is loading, please wait...</div>;
   }
 
+  const handleClose = () => {
+    setIsModalVisbible(false);
+  };
+
   const categoriesToDisplay = categoriesArr.map((category) => {
     return (
       <>
         <CategoryPreviewList
           key={category.id}
           category={category}
-          clickRemoveCategory={removeCategory}
+          clickRemoveCategory={deleteCategoryFromList}
         />
       </>
     );
@@ -83,8 +125,13 @@ const ContestCreation = () => {
         <ContestPreview
           key={contest.id}
           contest={contest}
-          removeCategory={removeCategory}
+          addCategoryFromList={addCategoryFromList}
+          openCategoryList={openCategoryList}
+          // removeCategoryFromContest={removeCategoryFromContest}
+          updateRemoveContestCategories={updateRemoveContestCategories}
           updateCategory={updateCategory}
+          handleClose={handleClose}
+          isModalVisible={isModalVisible}
         />
       </>
     );
@@ -93,10 +140,14 @@ const ContestCreation = () => {
   return (
     <>
       <div className="mainPage">
-        <NewCategoryForm />
-        <div className="categoryListContainer">{categoriesToDisplay}</div>
-        <NewContestForm />
-        <div className="contestListContainer">{contestsToDisplay}</div>
+        <div className="categoriesFormAndList">
+          <NewCategoryForm />
+          <div className="categoryListContainer">{categoriesToDisplay}</div>
+        </div>
+        <div className="contestFormAndList">
+          <NewContestForm />
+          <div className="contestListContainer">{contestsToDisplay}</div>
+        </div>
       </div>
     </>
   );

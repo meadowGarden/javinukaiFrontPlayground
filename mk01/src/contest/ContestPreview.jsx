@@ -1,7 +1,15 @@
+import CategoryModal from "./CategoryModal";
 import CategoryPreview from "./CategoryPreview";
 import "./ContestPreview.css";
 
-const ContestPreview = ({ contest, clickAddCategory, removeCategory, updateCategory}) => {
+const ContestPreview = ({
+  contest,
+  updateRemoveContestCategories,
+  openCategoryList,
+  updateCategory,
+  isModalVisible,
+  handleClose,
+}) => {
   const { contestName, description, id, startDate, endDate, categories } =
     contest;
   const categoriesToDisplay = categories.map((category) => {
@@ -9,7 +17,9 @@ const ContestPreview = ({ contest, clickAddCategory, removeCategory, updateCateg
       <CategoryPreview
         key={category.id}
         category={category}
-        clickRemoveCategory={removeCategory}
+        contestID={id}
+        contest={contest}
+        updateRemoveContestCategories={updateRemoveContestCategories}
         clickUpdateCategory={updateCategory}
       />
     );
@@ -25,10 +35,15 @@ const ContestPreview = ({ contest, clickAddCategory, removeCategory, updateCateg
       <div className="contestParagraph">{categoriesToDisplay}</div>
       <button
         className="contestPreviewContainerPostButton"
-        onClick={() => clickAddCategory()}
+        onClick={() => openCategoryList(contest)}
       >
         +
       </button>
+      <CategoryModal
+        isModalVisible={isModalVisible}
+        handleClose={handleClose}
+        categories={categories}
+      />
     </div>
   );
 };

@@ -1,3 +1,10 @@
+
+.contestFormAndList {
+  background-color: #a4c1e1;
+  padding: 1rem;
+}
+
+
 .contestContainer {
   background-color: #c2dfff;
   margin: 0;
@@ -7,6 +14,11 @@
 .contestParagraph {
   margin: 0;
   padding: 0.2em;
+}
+
+.categoriesFormAndList {
+  background-color: #a4c1e1;
+  padding: 1rem;
 }
 
 .categoryListContainer {

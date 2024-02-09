@@ -1,0 +1,21 @@
+.mainPage {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.formSubmitButton {
+  font-size: 1em;
+  font-weight: 500;
+  color: black;
+  background-color: #39a889;
+  border-radius: 8px;
+  border: 1px;
+  padding: 0.6em 1.2em;
+  margin: 5px;
+  width: 25%;
+}
+.formSubmitButton:hover {
+  background-color: #1b8a6b;
+  border-color: #003a1b;
+}
