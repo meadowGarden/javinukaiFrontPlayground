@@ -2,13 +2,15 @@ import { useState } from "react";
 import axios from "axios";
 import "./NewContestForm.css";
 import "./CommonStyle.css";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
-const NewContestForm = () => {
+const NewContestForm = ({ clickAddCategoryFromList }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [contestFormData, setContestFormData] = useState({
     contestName: "",
     description: "",
-    category: [{}],
+    categories: [{}],
     totalSubmissions: "",
     startDate: "",
     endDate: "",
@@ -26,26 +28,32 @@ const NewContestForm = () => {
     const newContest = {
       contestName: contestFormData.contestName,
       description: contestFormData.description,
-      category: [{}],
+      categories: [
+        {
+          // id: "47e7c7df-34e8-44e6-aeca-b83e2a16f5c4",
+          categoryName: "medicina ir panašiai",
+          description: "slaugos mokslas",
+          totalSubmissions: 150
+        },
+      ],
       totalSubmissions: contestFormData.totalSubmissions,
-      startDate: handleForm.startDate,
-      endDate: "",
+      startDate: contestFormData.startDate,
+      endDate: contestFormData.endDate,
     };
-    console.log(newContest);
     sendNewContest(newContest);
     // setIsLoading(true);
   };
 
   const sendNewContest = (contest) => {
+    console.log(contest);
     axios
       .post("http://localhost:8080/api/v1/contests", contest)
       .then((response) => {
-        console.log(response);
+        console.log(response.data);
         setIsLoading(false);
       })
       .catch((error) => console.log(error));
   };
-
 
   return (
     <>
@@ -60,7 +68,7 @@ const NewContestForm = () => {
               name="contestName"
               value={contestFormData.contestName}
               onChange={handleForm}
-              placeholder="enter contest name"
+              placeholder="konkurso pavadinimas"
               className="contestFormInputStyle"
             />
 
@@ -70,7 +78,7 @@ const NewContestForm = () => {
               name="description"
               value={contestFormData.description}
               onChange={handleForm}
-              placeholder="enter description"
+              placeholder="konkurso aprašymas"
               className="contestFormInputStyle"
             />
 
@@ -79,28 +87,42 @@ const NewContestForm = () => {
               required
               type="number"
               name="totalSubmissions"
+              // defaultValue={50}
+              placeholder="įkėlimų skaičius"
               value={contestFormData.totalSubmissions}
               onChange={handleForm}
               className="contestFormInputStyle"
             />
 
             <label>start date</label>
-            <input
-              type="text"
+            <DatePicker
               name="startDate"
-              value={contestFormData.startDate}
-              onChange={handleForm}
+              selected={contestFormData.startDate}
+              onChange={(date) =>
+                setContestFormData({ ...contestFormData, startDate: date })
+              }
               className="contestFormInputStyle"
             />
 
             <label>end date</label>
-            <input
-              type="text"
+            <DatePicker
               name="endDate"
-              value={contestFormData.endDate}
-              onChange={handleForm}
+              selected={contestFormData.endDate}
+              onChange={(date) =>
+                setContestFormData({ ...contestFormData, endDate: date })
+              }
               className="contestFormInputStyle"
             />
+
+            <button
+              onClick={() => clickAddCategoryFromList()}
+              className="formAddCategoryButton"
+              onChange={(category) =>
+                setContestFormData({ ...contestFormData, categories: category })
+              }
+            >
+              add category to contest
+            </button>
 
             <button className="formSubmitButton">submit</button>
           </form>

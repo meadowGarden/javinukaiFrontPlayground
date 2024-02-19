@@ -13,40 +13,43 @@ const ContestCreation = () => {
   const [constestArr, setContestArr] = useState([]);
 
   useEffect(() => {
+    const pageNumber = 1;
+    const pageSize = 20;
+
     axios
-      .get("http://localhost:8080/api/v1/categories")
+      .get(
+        `http://localhost:8080/api/v1/categories?pageNumber=${pageNumber}&pageSize=${pageSize}`
+      )
       .then((response) => {
-        setCategoriesArr(response.data);
+        setCategoriesArr(response.data.content);
         setIsLoading();
       })
       .catch((error) => console.log(error));
   }, []);
 
   useEffect(() => {
+    const pageNumber = 1;
+    const pageSize = 20;
+
     axios
-      .get("http://localhost:8080/api/v1/contests")
+      .get(
+        `http://localhost:8080/api/v1/contests?pageNumber=${pageNumber}&pageSize=${pageSize}`
+      )
       .then((response) => {
-        setContestArr(response.data);
+        setContestArr(response.data.content);
         setIsLoading();
       })
       .catch((error) => console.log(error));
   }, []);
 
-  // const addCategory = (category) => {
-  //   console.log(category);
-  //   axios
-  //     .post("http://localhost:8080/api/v1/categories", category)
-  //     .then((response) => {
-  //       console.log(response.data);
-  //       setIsLoading(false);
-  //     })
-  //     .catch((error) => console.log(error));
-  // };
-
-  const addCategoryFromList = (category) => {
+  const addCategoryFromListAC = (category) => {
     console.log(
       "cetegory to add" + category.categoryName + " " + category.description
     );
+  };
+
+  const addCategoryFromListForm = () => {
+    console.log("miau");
   };
 
   const openCategoryList = (contest) => {
@@ -79,10 +82,7 @@ const ContestCreation = () => {
 
   const updateRemoveContestCategories = (contestID, categories) => {
     axios
-      .patch(
-        `http://localhost:8080/api/v1/contests/${contestID}`,
-        categories
-      )
+      .patch(`http://localhost:8080/api/v1/contests/${contestID}`, categories)
       .then((response) => {
         console.log(response);
       })
@@ -124,8 +124,7 @@ const ContestCreation = () => {
       <>
         <ContestPreview
           key={contest.id}
-          contest={contest}
-          addCategoryFromList={addCategoryFromList}
+          contest={contest}          
           openCategoryList={openCategoryList}
           // removeCategoryFromContest={removeCategoryFromContest}
           updateRemoveContestCategories={updateRemoveContestCategories}
@@ -145,7 +144,9 @@ const ContestCreation = () => {
           <div className="categoryListContainer">{categoriesToDisplay}</div>
         </div>
         <div className="contestFormAndList">
-          <NewContestForm />
+          <NewContestForm
+            clickAddCategoryFromList={addCategoryFromListForm}
+          />
           <div className="contestListContainer">{contestsToDisplay}</div>
         </div>
       </div>

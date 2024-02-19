@@ -7,6 +7,23 @@
 
 .contestFormInputStyle {
   width: 50%;
+  font-size: 1.1rem;
   padding: 0.2rem;
   margin: 0.1rem;
+}
+
+.formAddCategoryButton {
+  font-size: 1em;
+  font-weight: 500;
+  color: black;
+  background-color: #F8D989;
+  border-radius: 8px;
+  border: 1px;
+  padding: 0.6em 1.2em;
+  margin: 5px;
+  width: 25%;
+}
+.formAddCategoryButton:hover {
+  background-color: #D0B161;
+  border-color: #003a1b;
 }

@@ -18,8 +18,8 @@ const NewCategoryForm = () => {
     }));
   };
 
-  const handleSubmit = () => {
-    // event.preventDefault();
+  const handleSubmit = (event) => {
+    event.preventDefault();
     const newCategory = {
       categoryName: categoryFormData.categoryName,
       description: categoryFormData.description,
@@ -30,6 +30,7 @@ const NewCategoryForm = () => {
   };
 
   const sendNewCategory = (newCategory) => {
+    
     axios
       .post("http://localhost:8080/api/v1/categories", newCategory)
       .then((response) => {
@@ -52,7 +53,7 @@ const NewCategoryForm = () => {
               name="categoryName"
               value={categoryFormData.categoryName}
               onChange={handleForm}
-              placeholder="enter category name"
+              placeholder="kategorijos pavadinimas"
               className="categoryFormInputStyle"
             />
 
@@ -62,7 +63,7 @@ const NewCategoryForm = () => {
               name="description"
               value={categoryFormData.description}
               onChange={handleForm}
-              placeholder="enter description"
+              placeholder="kategorijos aprašymas"
               className="categoryFormInputStyle"
             />
 
@@ -71,6 +72,8 @@ const NewCategoryForm = () => {
               required
               type="number"
               name="totalSubmissions"
+              // defaultValue={50}
+              placeholder="įkėlimų skaičius"
               value={categoryFormData.totalSubmissions}
               onChange={handleForm}
               className="categoryFormInputStyle"
